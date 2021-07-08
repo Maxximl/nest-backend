@@ -11,7 +11,7 @@ export class AuthService {
 
 
     async login(userDto: CreateUserDto) {
-        const user = this.validateUser(userDto)
+        const user = await this.validateUser(userDto)
         return this.generateToken(user);
     }
 
@@ -28,6 +28,7 @@ export class AuthService {
 
     generateToken(user) {
         const payload = { email: user.email, id: user.id, roles: user.roles };
+        console.log(payload)
         return {
             token: this.jwtService.sign(payload)
         }
