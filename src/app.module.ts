@@ -6,6 +6,10 @@ import { RolesModule } from './roles/roles.module';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { AuthModule } from './auth/auth.module';
+import { PostsModule } from './posts/posts.module';
+import { Post } from './posts/posts.model';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
     imports: [
@@ -18,11 +22,15 @@ import { AuthModule } from './auth/auth.module';
             database: 'nest-back',
             autoLoadModels: true,
             synchronize: true,
-            models: [User, Role, UserRoles]
+            models: [User, Role, UserRoles, Post]
         }),
         UsersModule,
         RolesModule,
         AuthModule,
+        PostsModule,
+        ServeStaticModule.forRoot({
+            rootPath: join(__dirname,  'static'),
+          }),
     ],
 })
 export class AppModule { }

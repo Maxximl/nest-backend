@@ -26,8 +26,11 @@
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/platform-express": "7.6.15",
     "@nestjs/sequelize": "0.2.0",
+    "@nestjs/serve-static": "^2.2.2",
     "@nestjs/swagger": "^4.8.0",
     "bcryptjs": "^2.4.3",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "cross-env": "^7.0.3",
     "mysql2": "2.2.5",
     "pg": "^8.6.0",
@@ -38,7 +41,8 @@
     "sequelize": "6.6.2",
     "sequelize-typescript": "2.1.0",
     "swagger-ui-express": "^4.1.6",
-    "typescript": "4.2.4"
+    "typescript": "4.2.4",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/sequelize": "4.28.9",
