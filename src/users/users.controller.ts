@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards, UsePipes } from '@nestjs/common';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { get } from 'http';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -17,13 +17,17 @@ export class UsersController {
 
     }
 
+    @ApiOperation({ summary: "Создать пользователя" })
+    @ApiResponse({ status: 201 })
     @UsePipes(ValidationPipe)
     @Post()
     create(@Body() userDto: CreateUserDto) {
         return this.userService.createUser(userDto);
     }
 
-    @Roles("USER", "ADMIN")
+    @ApiOperation({ summary: "Получить список всех пользователей" })
+    @ApiResponse({ status: 200 })
+    // @Roles("USER", "ADMIN")
     @UseGuards(RolesGuard)
     @Get()
     getAll() {
@@ -39,12 +43,19 @@ export class UsersController {
         return this.userService.addRole(dto);
     }
 
-    @ApiOperation({ summary: "Забанить пользователя" })
+    @ApiOperation({ summary: "Заблокировать пользователя" })
     @ApiResponse({ status: 200 })
     @Roles("ADMIN")
     @UseGuards(RolesGuard)
     @Post("/ban")
     ban(@Body() dto: BanUserDto) {
         return this.userService.ban(dto);
+    }
+
+    @Delete(":id")
+    @Roles("ADMIN")
+    @UseGuards(RolesGuard)
+    remove(@Param() params: string[]) {
+        return this.userService.remove(params["id"]);
     }
 }
